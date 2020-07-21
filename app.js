@@ -1,7 +1,18 @@
-const profileDataArgs = process.argv.slice(2, process.argv.length);
+//needed to use node fs module
+const fs = require('fs');
 
-const printProfileData = profileDataArr => {
-    profileDataArr.forEach(profileItem => console.log(profileItem));
-};
+//needed to use generatePage()
+const generatePage = require('./src/page-template.js');
 
-printProfileData(profileDataArgs);
+//holds user command-line arguments
+const profileDataArgs = process.argv.slice(2);
+
+//extract arguments and store them into distinct variables
+const [name, github] = profileDataArgs;
+
+//create html file
+fs.writeFile('./index.html', generatePage(name, github), err => {
+    if (err) throw new Error(err);
+
+    console.log('Portfolio complete! Check out index.html to see the output!');
+})
