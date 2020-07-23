@@ -2,7 +2,8 @@
 module.exports = templateData => {
     // destructure page data by section
     const { projects, about, ...header } = templateData;
-    console.log(projects, about, header);
+    
+    console.log(header);
     
     //create content for html page
     return `

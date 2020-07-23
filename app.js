@@ -144,7 +144,7 @@ const promptProject = portfolioData => {
 //         // });
 //     });
 
-mockData = [
+templateData = [
     {
         name: 'Lernantino',
         github: 'lernantino',
@@ -192,7 +192,7 @@ mockData = [
     }
 ];
 //use mock data for testing purposes
-const pageHTML = generatePage(mockData);
+const pageHTML = generatePage(templateData[0]);
 
 
 //needed to use node fs module
