@@ -1,8 +1,8 @@
 //accept one parameter... object of portfolio data
 module.exports = templateData => {
     // destructure page data by section
-    const { project, about, ...header } = templateData;
-    console.log(project, about, header);
+    const { projects, about, ...header } = templateData;
+    console.log(projects, about, header);
     
     //create content for html page
     return `
