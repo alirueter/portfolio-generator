@@ -45,6 +45,7 @@ const promptUser = () => {
     ]);  
 };
 
+//ask user for information about project
 const promptProject = portfolioData => {
     // If there's no 'projects' array property, create one
     if (!portfolioData.projects) {
@@ -114,11 +115,15 @@ const promptProject = portfolioData => {
             default: false
           }
     ])
+    //push project data into array
     .then(projectData => {
         portfolioData.projects.push(projectData);
+        //if user wants to add another project, display prompts again
         if (projectData.confirmAddProject) {
             return promptProject(portfolioData);
-        } else {
+        } 
+        //if user doesn't want to display another project, display project info
+        else {
             return portfolioData;
         }
     });
