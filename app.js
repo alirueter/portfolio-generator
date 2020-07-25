@@ -1,8 +1,7 @@
 //add inquirer
 const inquirer = require('inquirer');
 
-//needed to use node fs module
-const fs = require('fs');
+const {writeFile, copyFile} = require('./utils/generate-site.js');
 
 //needed to use generatePage()
 const generatePage = require('./src/page-template.js');
@@ -138,68 +137,21 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        const pageHTML = generatePage(portfolioData);
-
-        fs.writeFile('./index.html', pageHTML, err => {
-          if (err) throw new Error(err);
-
-          console.log('Page created! Check out index.html in this directory to see it!');
-        });
+        return generatePage(portfolioData);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
     });
-
-// templateData = [
-//     {
-//         name: 'Lernantino',
-//         github: 'lernantino',
-//         confirmAbout: true,
-//         about:
-//           'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.',
-//         projects: [
-//           {
-//             name: 'Run Buddy',
-//             description:
-//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-//             languages: ['HTML', 'CSS'],
-//             link: 'https://github.com/lernantino/run-buddy',
-//             feature: true,
-//             confirmAddProject: true
-//           },
-//           {
-//             name: 'Taskinator',
-//             description:
-//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-//             languages: ['JavaScript', 'HTML', 'CSS'],
-//             link: 'https://github.com/lernantino/taskinator',
-//             feature: true,
-//             confirmAddProject: true
-//           },
-//           {
-//             name: 'Taskmaster Pro',
-//             description:
-//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-//             languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
-//             link: 'https://github.com/lernantino/taskmaster-pro',
-//             feature: false,
-//             confirmAddProject: true
-//           },
-//           {
-//             name: 'Robot Gladiators',
-//             description:
-//               'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
-//             languages: ['JavaScript'],
-//             link: 'https://github.com/lernantino/robot-gladiators',
-//             feature: false,
-//             confirmAddProject: false
-//           }
-//         ]
-//     }
-// ];
-// //use mock data for testing purposes
-// const pageHTML = generatePage(templateData[0]);
-
-
-
-
 
 
 //holds user command-line arguments
